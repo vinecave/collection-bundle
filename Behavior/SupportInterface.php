@@ -4,5 +4,5 @@ namespace Vinecave\Bundle\CollectionBundle\Behavior;
 
 interface SupportInterface
 {
-    public function supports(): array;
+    public static function supports(): array;
 }
