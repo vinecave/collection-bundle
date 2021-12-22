@@ -1,0 +1,5 @@
+services:
+  Vinecave\Bundle\CollectionBundle\:
+    autoconfigure: true
+    autowire: true
+    resource:   '../../'
