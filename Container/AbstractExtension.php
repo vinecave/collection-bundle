@@ -9,14 +9,24 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
 abstract class AbstractExtension extends Extension
 {
-    public function loadExtension(ContainerBuilder $container, string $baseDir): void
+    public function loadExtension(ContainerBuilder $container, string $bundleDir): void
     {
-        $loader = new YamlFileLoader($container, new FileLocator($baseDir . '/../Resources/config'));
-        $loader->load('services.yaml');
+        $directory = $bundleDir . '/Resources/config';
+
+        $loader = new YamlFileLoader($container, new FileLocator($directory));
+
+        $filename = 'services.yaml';
+
+        if (file_exists($directory . '/' . $filename)) {
+            $loader->load($filename);
+        }
 
         $env = $container->getParameter('kernel.environment');
-        if (file_exists($baseDir . '/../Resources/config/services_' . $env . '.yaml')) {
-            $loader->load('services_' . $env . '.yaml');
+
+        $filename = 'services_' . $env . '.yaml';
+
+        if (file_exists($directory . '/' . $filename)) {
+            $loader->load($filename);
         }
     }
 }
